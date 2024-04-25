@@ -1,5 +1,5 @@
-largura=int(input("digite a largura: "))
-altura=int(input("digite a altura: "))
+largura=int(input("Digite a largura: "))
+altura=int(input("Digite a altura: "))
 lar=0
 alt=0
 
