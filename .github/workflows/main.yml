@@ -45,7 +45,7 @@ jobs:
     - name: Install Safefy
       run: pip install safety
 
-    - name: Run Dapendencies Scan
+    - name: Run Dependencies Scan
       run: safety check -r requirements.txt --output json > sca-report.json
 
     - name: Upload Artifact
@@ -96,4 +96,4 @@ jobs:
       if: always()
       with:
         name: docker-scout-findings
-        path: sca-report.jason
+        path: sca-report.json
