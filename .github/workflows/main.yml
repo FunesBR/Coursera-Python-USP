@@ -29,6 +29,32 @@ jobs:
         name: bandit-findings
         path: bandit-report.json
 
+  sca_scan:
+    name: Run Safety Scan
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install Safefy
+      run: pip install safety
+
+    - name: Run Dapendencies Scan
+      run: safety chack -r requeriments.txt --output json > sca-report.json
+
+    - name: Upload Artifact
+      uses: actions/upload-artifacts@v3
+      if: always()
+      with:
+        name: safety-check-findings
+        path: sca-report.jason
+
   image_scan:
     name: Build Image and Run Image Scan
     runs-on: ununtu-latest
@@ -63,7 +89,8 @@ jobs:
         command: quickview,cves
         only-severities: critical,high
         sarif-file: scout-report.sarif
-
+        exit-code: true
+        
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       if: always()
